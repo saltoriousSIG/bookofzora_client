@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Users, Sparkles, Palette, Coins, ArrowRight, Star, MessageSquare } from "lucide-react"
 import Header from "@/components/header/Header"
 import { NavLink } from "react-router-dom"
-
 interface HowItWorksPageProps {
     handleGoBack: () => void;
 }
