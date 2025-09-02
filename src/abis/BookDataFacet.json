@@ -1,0 +1,299 @@
+[
+  {
+    "inputs": [],
+    "name": "Ownable__NotOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Ownable__NotTransitiveOwner",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "author",
+        "type": "address"
+      }
+    ],
+    "name": "fetch_author_books",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "book_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "fetch_book_authors",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "author_address",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fid",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct LibBookofZora.Author[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "book_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "fetch_book_chapters",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "author_address",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fid",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct LibBookofZora.Author",
+            "name": "author",
+            "type": "tuple"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "content_hash",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct LibBookofZora.Chapter[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "book_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "fetch_book_data",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "next_chapter_index",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "cover_image_uri",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "completed_book_uri",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct BookDataFacet.BookDataResponse",
+        "name": "book_data",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fetch_current_book",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "book_id",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fetch_settings",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "usdc_token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "chapter_price",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "book_count",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct BookDataFacet.BookSettings",
+        "name": "book_settings",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "book_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "author",
+        "type": "address"
+      }
+    ],
+    "name": "is_author",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "purchased",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "new_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "set_chapter_price",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "new_usdc",
+        "type": "address"
+      }
+    ],
+    "name": "set_usdc_token",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
