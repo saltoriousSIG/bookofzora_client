@@ -3,5 +3,15 @@
     "header": "eyJmaWQiOjEzMDMyNjYsInR5cGUiOiJhdXRoIiwia2V5IjoiMHhBYjI5QjIxN0VFN2Q4QTZjZjYxN0U0NUU1OUQyRjMxOUNlNzFDNkQxIn0",
     "payload": "eyJkb21haW4iOiJib3otZnJvbnRlbmQudmVyY2VsLmFwcCJ9",
     "signature": "sgdlgNWqApHMMMyO95bA/HYyTvooWrJOFykOb3R7e58bbOeyXdTGTYglwCfxRk9YXxsg8LjjtOafaIvDJcCkoBw="
+  },
+  "frame": {
+    "version": "1",
+    "name": "The Book of Zora",
+    "iconUrl": "https://res.cloudinary.com/dsrjjqkjs/image/upload/v1756788827/ff2decf2-f11a-45e0-b948-ba2da9f5b65c-removebg-preview_e5tt1p.png",
+    "homeUrl": "https://boz-frontend.vercel.app/",
+    "imageUrl": "https://res.cloudinary.com/dsrjjqkjs/image/upload/v1756788827/ff2decf2-f11a-45e0-b948-ba2da9f5b65c-removebg-preview_e5tt1p.png",
+    "buttonTitle": "Add your brat",
+    "splashImageUrl": "https://res.cloudinary.com/dsrjjqkjs/image/upload/v1756788827/ff2decf2-f11a-45e0-b948-ba2da9f5b65c-removebg-preview_e5tt1p.png",
+    "splashBackgroundColor": "#eeccff"
   }
 }
