@@ -50,7 +50,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
 
     const handle_check_allowance = useCallback(async () => {
         if (!bookOfZoraSettings) return;
-        const allowance = await check_allowance([DIAMOND_ADDRESS, bookOfZoraSettings?.chapter_price]);
+        const allowance = await check_allowance([address, DIAMOND_ADDRESS]);
         setIsApproved(allowance >= bookOfZoraSettings.chapter_price);
     }, [check_allowance, bookOfZoraSettings]);
 
