@@ -104,7 +104,7 @@ const AddBeatPage: React.FC<AddBeatPageProps> = ({ handleGoBack }) => {
                                         <div key={index} className="border-l-2 border-cyan-200 pl-3 py-2">
                                             <div className="flex items-center gap-2 mb-1">
                                                 <span className="text-xs bg-cyan-100 text-cyan-800 px-2 py-1 rounded-full font-medium">
-                                                    Beat {chapter_data.length - index}
+                                                    Beat {index + 1}
                                                 </span>
                                                 <span className="text-sm font-medium text-foreground">{beat.author}</span>
                                                 <span className="text-xs text-muted-foreground">{beat.timestamp.toDateString()}</span>
