@@ -73,10 +73,15 @@ const CurrentBook: React.FC<CurrentBookProps> = () => {
                                         {currentBook?.authors.length} authors
                                     </span>
                                 </div>
-                                <div className="flex items-center justify-center">
-                                    {hydrated_authors.map((author) => {
+                                <div className="flex items-center -space-x-2] justify-center">
+                                    {hydrated_authors.map((author, index) => {
                                         return (
-                                            <img key={author.fid} src={author.avatar} className="rounded-full h-[25px] w-[25px] outline-[1px] outline-blue-300" />
+                                            <div>
+
+                                                <img style={{
+                                                    zIndex: index
+                                                }} key={author.fid} src={author.avatar} className="rounded-full h-[25px] w-[25px] outline-[1px] outline-blue-300" />
+                                            </div>
                                         )
                                     })}
                                 </div>

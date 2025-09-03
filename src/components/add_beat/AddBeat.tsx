@@ -21,6 +21,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
     const [isAuthor, setIsAuthor] = useState<boolean>();
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [dialogTitle, setDialogTitle] = useState<string>();
+    const [isApproved, setIsApproved] = useState<boolean>();
     const [dialogContent, setDialogContent] = useState<string>();
 
     const { currentBook, bookOfZoraSettings, fetch_data } = useBooks();
@@ -31,7 +32,6 @@ const AddBeat: React.FC<AddBeatProps> = () => {
     const remainingChars = maxLength - beatText.length
     const remainingTitleChars = maxTitleLength - beatTitle.length
     const progressValue = (beatText.length / maxLength) * 100
-    console.log(currentBook?.authors);
 
     const is_author = useContract(ExecutionType.READABLE, "Data", "is_author");
     const approve_usdc = useContract(ExecutionType.WRITABLE, "ERC20", "approve", USDC_ADDRESS)
@@ -48,14 +48,31 @@ const AddBeat: React.FC<AddBeatProps> = () => {
         load();
     }, [currentBook, address, is_author]);
 
+    const handle_check_allowance = useCallback(async () => {
+        if (!bookOfZoraSettings) return;
+        const allowance = await check_allowance([DIAMOND_ADDRESS, bookOfZoraSettings?.chapter_price]);
+        setIsApproved(allowance >= bookOfZoraSettings.chapter_price);
+    }, [check_allowance, bookOfZoraSettings]);
+
+    useEffect(() => {
+        const load = async () => {
+            await handle_check_allowance();
+        }
+        load();
+    }, [handle_check_allowance]);
+
+    const approve = useCallback(async () => {
+        if (!bookOfZoraSettings) return;
+        const approved = await approve_usdc([DIAMOND_ADDRESS, bookOfZoraSettings.chapter_price]);
+        await handle_check_allowance();
+        return approved;
+    }, [approve_usdc, bookOfZoraSettings]);
+
+
     const purchase = useCallback(async () => {
         if (!bookOfZoraSettings || !currentBook || !fUser) return;
         setIsPurchasing(true)
         try {
-            const allowance = await check_allowance([address, DIAMOND_ADDRESS]);
-            if (allowance < bookOfZoraSettings.chapter_price) {
-                await approve_usdc([DIAMOND_ADDRESS, bookOfZoraSettings.chapter_price]);
-            }
             await purchase_chapter([currentBook.id, fUser.fid]);
             setDialogTitle("Transaction Successful");
             setDialogContent("Your slot has been purchased. Continue writing below")
@@ -152,18 +169,29 @@ const AddBeat: React.FC<AddBeatProps> = () => {
                                                 Unlock your creative voice and help shape this legendary tale
                                             </p>
                                         </div>
-                                        <Button
-                                            onClick={purchase}
-                                            size="sm"
-                                            className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-xs px-3 py-1"
-                                        >
-                                            {isPurchasing ?
-                                                (<>
-                                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                                                    Purchasing Slot...
-                                                </>)
-                                                : "Unlock Access"}
-                                        </Button>
+                                        {!isApproved ? (
+                                            <Button
+                                                onClick={approve}
+                                                size="sm"
+                                                className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-xs px-3 py-1"
+                                            >
+                                                Approve USDC
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                onClick={purchase}
+                                                size="sm"
+                                                className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-xs px-3 py-1"
+                                            >
+                                                {isPurchasing ?
+                                                    (<>
+                                                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                                                        Purchasing Slot...
+                                                    </>) :
+                                                    "Purchase Slot"
+                                                }
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
                             )}
