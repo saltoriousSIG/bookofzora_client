@@ -13,5 +13,11 @@
     "buttonTitle": "Add your beat",
     "splashImageUrl": "https://res.cloudinary.com/dsrjjqkjs/image/upload/v1756788827/ff2decf2-f11a-45e0-b948-ba2da9f5b65c-removebg-preview_e5tt1p.png",
     "splashBackgroundColor": "#eeccff"
+  },
+  "baseBuilder": {
+    "allowedAddresses": [
+      "0x042cB6C85F434e7c610c3E91744bD5D38C898f72",
+      "0xAb29B217EE7d8A6cf617E45E59D2F319Ce71C6D1"
+    ]
   }
 }
