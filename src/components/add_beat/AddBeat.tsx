@@ -163,7 +163,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
                                         </div>
                                         <div>
                                             <h3 className="font-semibold text-teal-800 dark:text-teal-200 text-sm">
-                                                Join the Story for $1
+                                                Join the Story for $0
                                             </h3>
                                             <p className="text-xs text-teal-700 dark:text-teal-300">
                                                 Unlock your creative voice and help shape this legendary tale
