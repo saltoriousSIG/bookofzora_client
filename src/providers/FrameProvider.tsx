@@ -13,6 +13,7 @@ interface FrameContextValue {
     handleSetIsFrameAdding: (state: boolean) => void;
     isFrameAdded: boolean;
     isFrameAdding: boolean;
+    connect: Function;
 }
 
 const FrameSDKContext = createContext<FrameContextValue | undefined>(undefined);
@@ -96,7 +97,8 @@ export function FrameSDKProvider({ children }: { children: React.ReactNode }) {
             handleSetIsFrameAdding,
             isFrameAdded,
             isFrameAdding,
-            isConnected
+            isConnected,
+            connect
         }}>
             {children}
         </FrameSDKContext.Provider>

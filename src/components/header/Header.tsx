@@ -7,8 +7,7 @@ import { Badge } from "@/components/ui/badge"
 interface HeaderProps { }
 
 const Header: React.FC<HeaderProps> = () => {
-    const { fUser, isConnected } = useFrameContext();
-    console.log(fUser, isConnected)
+    const { fUser, isConnected, connect } = useFrameContext();
     return (
         <header className="border-b border-border bg-background/80 backdrop-blur-sm top-0 z-50">
             <div className="max-w-6xl mx-auto px-4 py-4">
@@ -29,7 +28,7 @@ const Header: React.FC<HeaderProps> = () => {
                     </div>
 
                     {!isConnected ? (
-                        <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-2 rounded-full shadow-lg mobile-tap touch-target">
+                        <Button onClick={() => connect()} className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-2 rounded-full shadow-lg mobile-tap touch-target">
                             <Zap className="w-4 h-4 mr-2" />
                             Connect
                         </Button>
