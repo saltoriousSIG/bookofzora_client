@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
-import { Zap, Sparkles, Send, CheckCircle } from "lucide-react";
+import { Zap, Sparkles, Send, CheckCircle, MessageSquare } from "lucide-react";
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
 import { Textarea } from "../ui/textarea";
@@ -10,6 +10,7 @@ import { useFrameContext } from "@/providers/FrameProvider";
 import { USDC_ADDRESS, DIAMOND_ADDRESS } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import axios from "axios";
+import ShareModalDialog from "../share_modal_dialog/ShareModalDialog";
 
 interface AddBeatProps { }
 
@@ -23,6 +24,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
     const [dialogTitle, setDialogTitle] = useState<string>();
     const [isApproved, setIsApproved] = useState<boolean>();
     const [dialogContent, setDialogContent] = useState<string>();
+    const [shareModalOpen, setShareModalOpen] = useState<boolean>(false);
 
     const { currentBook, bookOfZoraSettings, fetch_data } = useBooks();
     const { address, fUser } = useFrameContext();
@@ -109,6 +111,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
         } finally {
             await fetch_data();
             setIsSubmitting(false);
+            setShareModalOpen(true);
         }
     }, [currentBook, fUser, beatText, beatTitle]);
 
@@ -278,15 +281,47 @@ const AddBeat: React.FC<AddBeatProps> = () => {
                     </CardContent>
                 </Card>
             ) : (
-                <Card className="border-teal-200/50 bg-gradient-to-br from-white to-teal-50/50 dark:from-slate-800 dark:to-teal-950/50">
+                <Card className="border-purple-200/50 bg-gradient-to-br from-white to-purple-50/50 dark:from-slate-800 dark:to-purple-950/50">
                     <CardHeader>
-                        <CardTitle>
-                            Beat Submitted for this Book
+                        <CardTitle className="text-xl flex items-center gap-2 text-foreground">
+                            <CheckCircle className="w-5 h-5 text-purple-600" />
+                            Your Beat is Live!
                         </CardTitle>
+                        <CardDescription>
+                            Your contribution has been added to the collaborative story. Share it with your community!
+                        </CardDescription>
                     </CardHeader>
+                    <CardContent>
+                        <div className="space-y-4">
+                            <div className="bg-purple-50/50 dark:bg-purple-950/50 rounded-lg p-4 border border-purple-200/50">
+                                <h3 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
+                                    "beat title"
+                                </h3>
+                                <p className="text-purple-700 dark:text-purple-300 leading-relaxed">content</p>
+                            </div>
+
+                            <div className="flex gap-3">
+                                <Button
+                                    onClick={() => setShareModalOpen(true)}
+                                    className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300"
+                                >
+                                    <MessageSquare className="w-4 h-4 mr-2" />
+                                    Share on Farcaster
+                                </Button>
+                            </div>
+
+                            <div className="text-center">
+                                <p className="text-sm text-muted-foreground">
+                                    Your beat will be transformed into an illustrated chapter by AI.
+                                    <br />
+                                    Check back soon to see the magic happen!
+                                </p>
+                            </div>
+                        </div>
+                    </CardContent>
                 </Card>
             )}
-
+            <ShareModalDialog beatTitle={beatTitle} open={shareModalOpen} setOpen={(state) => setShareModalOpen(state)} />
         </>
     );
 }
