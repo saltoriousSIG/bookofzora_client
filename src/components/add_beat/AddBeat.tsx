@@ -105,9 +105,6 @@ const AddBeat: React.FC<AddBeatProps> = () => {
             });
             res_hash = hash;
             await submit_chapter([currentBook.id, beatTitle, hash]);
-            setDialogTitle("Beat Submitted")
-            setDialogContent("Your Beat has successfully been submitted");
-            setShowDialog(true)
         } catch (e: any) {
             if (res_hash) {
                 await axios.post("/api/delete_cast", {
