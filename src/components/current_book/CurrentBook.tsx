@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 interface CurrentBookProps { }
 
 const CurrentBook: React.FC<CurrentBookProps> = () => {
-    const { currentBook, hydrated_authors } = useBooks();
+    const { currentBook, hydrated_authors, chapter_data } = useBooks();
     console.log(hydrated_authors, "hydrated authors")
     return (
         <>
@@ -55,7 +55,7 @@ const CurrentBook: React.FC<CurrentBookProps> = () => {
                                 <div className="flex justify-between text-sm mb-2">
                                     <span className="text-muted-foreground font-medium">Chapters Written</span>
                                     <span className="font-bold text-primary">
-                                        {currentBook?.chapters.length} / 10 chapters
+                                        {chapter_data.length} / 10 chapters
                                     </span>
                                 </div>
                                 <div className="progress-scroll h-3 rounded-full overflow-hidden">

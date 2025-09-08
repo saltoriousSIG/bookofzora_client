@@ -136,26 +136,27 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
         const load = async () => {
             const beats = await Promise.all(
                 currentBook.chapters.map(async (chapter) => {
-                    console.log(chapter);
-                    const { data } = await axios.post("/api/fetch_cast", {
-                        cast_hash: chapter.content_hash
-                    });
-                    const { data: { user } } = await axios.post("/api/fetch_user", {
-                        fid: chapter.author.fid.toString()
-                    })
-                    console.log(data);
-                    return {
-                        ...chapter,
-                        text: data.text,
-                        likes: data.reactions.likes_count,
-                        avatar: user.pfp_url,
-                        author: user.display_name,
-                        author_address: chapter.author.author_address,
-                        timestamp: new Date(data.timestamp)
+                    if (chapter.content_hash) {
+                        const { data } = await axios.post("/api/fetch_cast", {
+                            cast_hash: chapter.content_hash
+                        });
+                        const { data: { user } } = await axios.post("/api/fetch_user", {
+                            fid: chapter.author.fid.toString()
+                        })
+                        return {
+                            ...chapter,
+                            text: data.text,
+                            likes: data.reactions.likes_count,
+                            avatar: user.pfp_url,
+                            author: user.display_name,
+                            author_address: chapter.author.author_address,
+                            timestamp: new Date(data.timestamp)
+                        }
                     }
                 })
             );
-            setChapterData(beats);
+            const res = beats.filter((u) => u);
+            setChapterData(res as any);
         }
 
         load();

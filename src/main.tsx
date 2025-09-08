@@ -5,6 +5,8 @@ import { WagmiProvider } from "wagmi";
 import { FrameSDKProvider } from "./providers/FrameProvider.tsx";
 import { BookProvider } from "./providers/BookProvider.tsx";
 import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner"
+
 
 import App from "./App.tsx";
 import { config } from "./wagmi.ts";
@@ -21,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <FrameSDKProvider>
             <BookProvider>
               <App />
+              <Toaster />
             </BookProvider>
           </FrameSDKProvider>
         </BrowserRouter>

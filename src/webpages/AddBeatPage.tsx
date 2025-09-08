@@ -66,11 +66,11 @@ const AddBeatPage: React.FC<AddBeatPageProps> = ({ handleGoBack }) => {
                                         <div className="flex justify-between text-sm mb-2">
                                             <span className="text-muted-foreground font-medium">Story Progress</span>
                                             <span className="font-bold text-emerald-700">
-                                                {currentBook?.chapters.length} / 10 chapters
+                                                {chapter_data.length} / 10 chapters
                                             </span>
                                         </div>
                                         <Progress
-                                            value={(currentBook?.chapters.length || 0 / 10) * 100}
+                                            value={(chapter_data.length || 0 / 10) * 100}
                                             className="h-2 bg-emerald-100 dark:bg-emerald-900"
                                         />
                                     </div>

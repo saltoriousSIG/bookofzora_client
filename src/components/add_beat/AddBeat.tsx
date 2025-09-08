@@ -11,6 +11,8 @@ import { USDC_ADDRESS, DIAMOND_ADDRESS } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import axios from "axios";
 import ShareModalDialog from "../share_modal_dialog/ShareModalDialog";
+import { toast } from "sonner";
+
 
 interface AddBeatProps { }
 
@@ -44,8 +46,6 @@ const AddBeat: React.FC<AddBeatProps> = () => {
     const current_author_chapter = useMemo(() => {
         return chapter_data.find((c) => c.author_address === address);
     }, [chapter_data, address]);
-
-    console.log(current_author_chapter, "current author chapter");
 
     useEffect(() => {
         if (!currentBook || !address) return;
@@ -100,9 +100,15 @@ const AddBeat: React.FC<AddBeatProps> = () => {
         setIsSubmitting(true)
         let res_hash;
         try {
+            if (!beatTitle || !beatText) {
+                return toast.error("please include a title and content");
+            }
             const { data: { hash } } = await axios.post('/api/post_cast', {
                 text: beatText + ` - @${fUser.username}`
             });
+            if (!hash) {
+                return toast.error("No content hash");
+            }
             res_hash = hash;
             await submit_chapter([currentBook.id, beatTitle, hash]);
         } catch (e: any) {
