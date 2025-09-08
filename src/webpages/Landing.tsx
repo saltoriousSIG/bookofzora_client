@@ -48,21 +48,15 @@ export default function HomePage() {
                                     and animations. Own a piece of literary history.
                                 </p>
 
-                                <a
-                                    href="https://zora.co/collect/base:thebookofzora"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-block"
+
+                                <Button
+                                    onClick={() => sdk.actions.openUrl("https://zora.co/@thebookofzora")}
+                                    size="lg"
+                                    className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-4 text-lg font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 border-0"
                                 >
-                                    <Button
-                                        onClick={() => sdk.actions.openUrl("https://zora.co/@thebookofzora")}
-                                        size="lg"
-                                        className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-4 text-lg font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 border-0"
-                                    >
-                                        <Coins className="w-5 h-5 mr-3" />
-                                        Visit Book of Zora Collection
-                                    </Button>
-                                </a>
+                                    <Coins className="w-5 h-5 mr-3" />
+                                    Visit Book of Zora Collection
+                                </Button>
 
                             </CardContent>
                         </Card>
