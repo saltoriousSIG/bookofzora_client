@@ -23,6 +23,7 @@ export interface HydratedChapter extends Omit<Chapter, "author"> {
     likes: number;
     avatar: string;
     author: string;
+    author_address: string;
     timestamp: Date;
 }
 
@@ -65,7 +66,6 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
     const [bookOfZoraSettings, setBookOfZoraSettings] = useState<Settings>();
     const [chapterData, setChapterData] = useState<HydratedChapter[]>([]);
     const [hydratedAuthors, setHydratedAuthors] = useState<HydratedAuthor[]>([]);
-
 
     const fetch_current_book = useContract(ExecutionType.READABLE, "Data", "fetch_current_book");
     const fetch_book_data = useContract(ExecutionType.READABLE, "Data", "fetch_book_data")
@@ -136,6 +136,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
         const load = async () => {
             const beats = await Promise.all(
                 currentBook.chapters.map(async (chapter) => {
+                    console.log(chapter);
                     const { data } = await axios.post("/api/fetch_cast", {
                         cast_hash: chapter.content_hash
                     });
@@ -149,8 +150,8 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
                         likes: data.reactions.likes_count,
                         avatar: user.pfp_url,
                         author: user.display_name,
+                        author_address: chapter.author.author_address,
                         timestamp: new Date(data.timestamp)
-
                     }
                 })
             );

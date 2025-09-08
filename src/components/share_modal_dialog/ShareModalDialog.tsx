@@ -1,23 +1,28 @@
 import React from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../ui/dialog";
 import { Button } from "../ui/button";
+import sdk from "@farcaster/frame-sdk";
 import { MessageSquare } from "lucide-react";
 
 interface ShareModalDialogProps {
-    beatTitle: string;
+    bookTitle?: string;
+    beatTitle?: string;
     open: boolean;
     setOpen: (state: boolean) => void;
 }
 
-const ShareModalDialog: React.FC<ShareModalDialogProps> = ({ beatTitle, open, setOpen }) => {
+const ShareModalDialog: React.FC<ShareModalDialogProps> = ({ bookTitle, beatTitle, open, setOpen }) => {
 
     const handleShareToFarcaster = () => {
-
+        sdk.actions.composeCast({
+            text: `I just submitted an entry for ${bookTitle} in The Book of Zora. Add your submission to shape the direction of the story!`,
+            embeds: ["https://boz-frontend.vercel.app/"]
+        })
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="w-[90%]">
                 <DialogHeader>
                     <div className="flex items-center gap-3 mb-2">
                         <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-full flex items-center justify-center">
@@ -25,7 +30,7 @@ const ShareModalDialog: React.FC<ShareModalDialogProps> = ({ beatTitle, open, se
                         </div>
                         <div>
                             <DialogTitle className="text-lg font-semibold text-purple-800 dark:text-purple-200">
-                                Beat Submitted Successfully!
+                                Share on Farcaster
                             </DialogTitle>
                         </div>
                     </div>

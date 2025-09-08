@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
 import { Zap, Sparkles, Send, CheckCircle, MessageSquare } from "lucide-react";
 import { Button } from "../ui/button";
@@ -26,7 +26,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
     const [dialogContent, setDialogContent] = useState<string>();
     const [shareModalOpen, setShareModalOpen] = useState<boolean>(false);
 
-    const { currentBook, bookOfZoraSettings, fetch_data } = useBooks();
+    const { currentBook, bookOfZoraSettings, chapter_data, fetch_data } = useBooks();
     const { address, fUser } = useFrameContext();
 
     const maxLength = 280
@@ -40,6 +40,12 @@ const AddBeat: React.FC<AddBeatProps> = () => {
     const check_allowance = useContract(ExecutionType.READABLE, "ERC20", "allowance", USDC_ADDRESS);
     const purchase_chapter = useContract(ExecutionType.WRITABLE, "Chapter", "purchase_chapter");
     const submit_chapter = useContract(ExecutionType.WRITABLE, "Chapter", "submit_chapter");
+
+    const current_author_chapter = useMemo(() => {
+        return chapter_data.find((c) => c.author_address === address);
+    }, [chapter_data, address]);
+
+    console.log(current_author_chapter, "current author chapter");
 
     useEffect(() => {
         if (!currentBook || !address) return;
@@ -144,8 +150,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
                     </div>
                 </DialogContent>
             </Dialog>
-            {!currentBook?.authors.some((a) => a.author_address === address) ? (
-
+            {!current_author_chapter ? (
                 <Card className="border-teal-200/50 bg-gradient-to-br from-white to-teal-50/50 dark:from-slate-800 dark:to-teal-950/50">
                     <CardHeader>
                         <CardTitle className="text-xl flex items-center gap-2 text-foreground">
@@ -295,9 +300,9 @@ const AddBeat: React.FC<AddBeatProps> = () => {
                         <div className="space-y-4">
                             <div className="bg-purple-50/50 dark:bg-purple-950/50 rounded-lg p-4 border border-purple-200/50">
                                 <h3 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
-                                    "beat title"
+                                    {current_author_chapter.title}
                                 </h3>
-                                <p className="text-purple-700 dark:text-purple-300 leading-relaxed">content</p>
+                                <p className="text-purple-700 dark:text-purple-300 leading-relaxed">{current_author_chapter.text}</p>
                             </div>
 
                             <div className="flex gap-3">
@@ -321,7 +326,7 @@ const AddBeat: React.FC<AddBeatProps> = () => {
                     </CardContent>
                 </Card>
             )}
-            <ShareModalDialog beatTitle={beatTitle} open={shareModalOpen} setOpen={(state) => setShareModalOpen(state)} />
+            <ShareModalDialog bookTitle={currentBook?.title} beatTitle={beatTitle || current_author_chapter?.title} open={shareModalOpen} setOpen={(state) => setShareModalOpen(state)} />
         </>
     );
 }
