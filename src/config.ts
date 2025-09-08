@@ -1,7 +1,7 @@
 export const embedConfig = {
   version: "next",
   imageUrl:
-    "https://res.cloudinary.com/dsrjjqkjs/image/upload/v1756788827/ff2decf2-f11a-45e0-b948-ba2da9f5b65c-removebg-preview_e5tt1p.png",
+    "https://res.cloudinary.com/dsrjjqkjs/image/upload/v1757297716/ff2decf2-f11a-45e0-b948-ba2da9f5b65c-removebg-preview_e5tt1p_4_y3idzm.jpg",
   button: {
     title: "Add your Beat",
     action: {
